@@ -1,0 +1,46 @@
+class Vehicle:
+    def __init__(self, make, model, year, price):
+        self.make = make
+        self.model = model
+        self.year = year
+        self.price = price
+    def display_info(self):
+        return f"{self.year} {self.make} {self.model} - ${self.price}"
+class Car(Vehicle):
+    def __init__(self, make, model, year, price, num_doors, discount=0):
+        super().__init__(make, model, year, price)
+        self.num_doors = num_doors
+        self.discount = discount
+    def display_info(self):
+        discounted_price = self.price - (self.price * self.discount / 100)
+        return f"{super().display_info()}, {self.num_doors} doors, Discount: {self.discount}%, Discounted Price: ${discounted_price:.2f}"
+class Truck(Vehicle):
+    def __init__(self, make, model, year, price, towing_capacity, discount=0):
+        super().__init__(make, model, year, price)
+        self.towing_capacity = towing_capacity
+        self.discount = discount
+    def display_info(self):
+        discounted_price = self.price - (self.price * self.discount / 100)
+        return f"{super().display_info()}, Towing Capacity: {self.towing_capacity} lbs, Discount: {self.discount}%, Discounted Price: ${discounted_price:.2f}"
+class Dealership:
+    def __init__(self, name):
+        self.name = name
+        self.inventory = []
+    def add_vehicle(self, vehicle):
+        self.inventory.append(vehicle)
+    def display_inventory(self):
+        print(f"Inventory for {self.name}:")
+        for vehicle in self.inventory:
+            print(vehicle.display_info())
+# Create vehicle objects
+car1 = Car("Toyota", "Camry", 2022, 25000, 4, 10)
+car2 = Car("Honda", "Civic", 2021, 22000, 4)  # No discount specified
+truck1 = Truck("Ford", "F-150", 2020, 35000, 12000, 5)
+# Create dealership object
+dealership = Dealership("Best Cars")
+# Add vehicles to the dealership's inventory
+dealership.add_vehicle(car1)
+dealership.add_vehicle(car2)
+dealership.add_vehicle(truck1)
+# Display the dealership's inventory
+dealership.display_inventory()
